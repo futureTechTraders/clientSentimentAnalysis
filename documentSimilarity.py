@@ -68,6 +68,12 @@ class DocumentSimilarity():
             if self.file1TermFrequency[s] == self.file2TermFrequency[s]:
                 intersection += 1
         print(intersection / self.file1TermFrequency.__len__())
+    def minEditSimilarity(self):
+        numEdits = 0
+        for w in range(0,(self.file1TermFrequency.__len__())):
+            if self.file1TermFrequency[w] != self.file2TermFrequency[w]:
+                numEdits +=1
+        print(numEdits)
 #file1 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file1.txt", "r") #Leventes file path
 #file2 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file2.txt", "r") #Leventes file path
 
@@ -77,3 +83,6 @@ file2 = open("C:\\Users\\akhil\\Documents\\GitHub\\clientSentimentAnalysis\\file
 documentAnalysis = DocumentSimilarity(file1, file2)
 documentAnalysis.cosineSimilarity()
 documentAnalysis.jaccardSimilarity()
+documentAnalysis.minEditSimilarity()
+
+
