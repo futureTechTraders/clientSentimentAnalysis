@@ -60,10 +60,20 @@ class DocumentSimilarity():
         cosineSimilarity = (self.termFrequenciesMultiplied) / (self.file1EuclideanNorm * self.file2EuclideanNorm)
 
         print(cosineSimilarity)
+    
+    
+    def jaccardSimilarity(self):
+        intersection = 0
+        for s in range(0,(self.file1TermFrequency.__len__())):
+            if self.file1TermFrequency[s] == self.file2TermFrequency[s]:
+                intersection += 1
+        print(intersection / self.file1TermFrequency.__len__())
+#file1 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file1.txt", "r") #Leventes file path
+#file2 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file2.txt", "r") #Leventes file path
 
-
-file1 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file1.txt", "r") #first document (doesn't acutally exist yet, use the path to the file)
-file2 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file2.txt", "r") #second document (doesn't actually exist yet, use the path to the file)
+file1 = open("C:\\Users\\akhil\\Documents\\GitHub\clientSentimentAnalysis\\file1.txt", "r") #Akhils file path
+file2 = open("C:\\Users\\akhil\\Documents\\GitHub\\clientSentimentAnalysis\\file2.txt", "r")#Akhils file path
 
 documentAnalysis = DocumentSimilarity(file1, file2)
-documentAnalysis.cosineSimilarity();
+documentAnalysis.cosineSimilarity()
+documentAnalysis.jaccardSimilarity()
