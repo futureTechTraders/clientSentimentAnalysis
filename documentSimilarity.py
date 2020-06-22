@@ -60,8 +60,8 @@ class DocumentSimilarity():
         cosineSimilarity = (self.termFrequenciesMultiplied) / (self.file1EuclideanNorm * self.file2EuclideanNorm)
 
         print(cosineSimilarity)
-    
-    
+
+
     def jaccardSimilarity(self):
         intersection = 0
         for s in range(0,(self.file1TermFrequency.__len__())):
@@ -74,6 +74,24 @@ class DocumentSimilarity():
             if self.file1TermFrequency[w] != self.file2TermFrequency[w]:
                 numEdits +=1
         print(numEdits)
+
+    def simpleSimilarity(self): #assuming file1 is old and file2 is new
+
+        additions = 0
+        deletions = 0
+
+        for i in range(0, (self.file1TermFrequency.__len())):
+
+            if self.file2TermFrequency[i] > self.file1TermFrequency[i]:
+
+                additions += self.file2TermFrequency[i] - self.file1TermFrequency[i]
+            else:
+
+                deletions += self.file1TermFrequency[i] - self.file2TermFrequency[i]
+
+        print("Deletions: ", deletions)
+        print("Additions: ", additions")
+
 #file1 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file1.txt", "r") #Leventes file path
 #file2 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file2.txt", "r") #Leventes file path
 
@@ -84,5 +102,3 @@ documentAnalysis = DocumentSimilarity(file1, file2)
 documentAnalysis.cosineSimilarity()
 documentAnalysis.jaccardSimilarity()
 documentAnalysis.minEditSimilarity()
-
-
