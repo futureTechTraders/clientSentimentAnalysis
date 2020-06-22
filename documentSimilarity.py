@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import math
+import time
 
 class DocumentSimilarity():
 
@@ -15,10 +16,12 @@ class DocumentSimilarity():
         file1Hash = dict()
         file2Hash = dict()
 
-        file1Words = self.file1.read().split()
-        file2Words = self.file2.read().split()
+        file1Words = self.file1.read().replace('.', '').replace(',', '').split()
+        file2Words = self.file2.read().replace('.', '').replace(',', '').split()
 
         i = 0
+
+        print(time.time())
 
         while i < max(len(file1Words), len(file2Words)):
 
@@ -27,12 +30,24 @@ class DocumentSimilarity():
                 if not(file1Words[i] in file2Hash): file2Hash[file1Words[i]] = file2Words.count(file1Words[i])
                 if not(file1Words[i] in file1Hash): file1Hash[file1Words[i]] = file1Words.count(file1Words[i])
 
+                #if not(file1Words[i] in file2Hash): file2Hash[file1Words[i]] = 0
+                #else: file2Hash[file1Words[i]] += 1
+                #if not(file1Words[i] in file1Hash): file1Hash[file1Words[i]] = 1
+                #else: file1Hash[file1Words[i]] += 1
+
             if i < len(file2Words):
 
-                if not(file2Words[i] in file1Hash): file1Hash[file2Words[i]] = file1Words.count(file2Words[i])
                 if not(file2Words[i] in file2Hash): file2Hash[file2Words[i]] = file2Words.count(file2Words[i])
+                if not(file2Words[i] in file1Hash): file1Hash[file2Words[i]] = file1Words.count(file2Words[i])
+
+                #if not(file2Words[i] in file1Hash): file1Hash[file2Words[i]] = 0
+                #else: file1Hash[file2Words[i]] += 1
+                #if not(file2Words[i] in file2Hash): file2Hash[file2Words[i]] = 1
+                #else: file2Hash[file2Words[i]] += 1
 
             i += 1
+
+        print(time.time())
 
         self.file1TermFrequency = [0] * len(file1Hash)
         self.file2TermFrequency = [0] * len(file1Hash)
@@ -90,7 +105,7 @@ class DocumentSimilarity():
                 deletions += self.file1TermFrequency[i] - self.file2TermFrequency[i]
 
         print("Deletions: ", deletions)
-        print("Additions: ", additions")
+        print("Additions: ", additions)
 
 #file1 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file1.txt", "r") #Leventes file path
 #file2 = open("C:\\Users\\Administrator\\Documents\\GitHub\\clientSentimentAnalysis\\file2.txt", "r") #Leventes file path
